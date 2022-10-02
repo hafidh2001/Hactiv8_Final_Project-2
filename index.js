@@ -2,14 +2,14 @@
 import { port } from "./config.js";
 import express from "express";
 import cors from "cors";
-// import { checkConnection } from "./helpers/connectionDatabase.js";
+import { checkConnection } from "./helpers/connectionDatabase.js";
 import routes from "./routes/index.js";
 
 // Initializing variable express
 const app = express();
 
 // check connection to database
-// await checkConnection();
+await checkConnection();
 
 // calling the cors method for access API
 app.use(cors());

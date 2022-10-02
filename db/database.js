@@ -1,13 +1,9 @@
-// import { database } from "../config.js";
-// import pkg from "pg";
+import { database } from "../config.js";
+import { Sequelize } from "sequelize";
 
-// const { Pool } = pkg;
-// const db = new Pool({
-//   user: database.user,
-//   host: database.host,
-//   database: database.name,
-//   password: database.password,
-//   port: database.port,
-// });
+const db = new Sequelize(database.name, database.user, database.password, {
+  host: database.host,
+  dialect: "postgres",
+});
 
-// export default db;
+export default db;
