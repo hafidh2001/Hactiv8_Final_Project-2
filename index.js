@@ -23,5 +23,5 @@ app.use(routes);
 
 // declare route
 app.listen(8000, () => {
-  console.log(`Server running at port ${port}`);
+  console.log(`🍃 Server running at http://localhost:${port}/`);
 });
