@@ -1,26 +1,31 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
 import { hash } from "../helpers/bcrypt.js";
-// import Users from "../models/User.js";
-// import Photos from "../models/Photo.js";
 import { Photos, Users } from "../models/index.js";
 
 export const showPhotos = async (req, res) => {
-  await Photos.findAll({
-    attributes: [
-      ["id", "no"],
-      "title",
-      "caption",
-      "poster_image_url",
-      "userId",
-    ],
-    include: {
-      model: Users,
-      attributes: ["full_name", "email"],
-    },
-  }).then((data) => {
-    res.status(200).send(data);
-  });
+  try {
+    await Photos.findAll({
+      attributes: [
+        ["id", "no"],
+        "title",
+        "caption",
+        "poster_image_url",
+        "userId",
+      ],
+      include: {
+        model: Users,
+        attributes: ["full_name", "email"],
+      },
+    }).then((data) => {
+      res.status(200).send(data);
+    });
+  } catch (e) {
+    res.status(400).send({
+      status: "error",
+      message: e,
+    });
+  }
 };
 
 export const createPhoto = async (req, res) => {

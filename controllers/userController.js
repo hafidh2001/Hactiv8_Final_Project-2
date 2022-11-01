@@ -1,41 +1,32 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
 import { hash } from "../helpers/bcrypt.js";
-// import Users from "../models/User.js";
-// import Photos from "../models/Photo.js";
 import { Users, Photos } from "../models/index.js";
 
 export const showUser = async (req, res) => {
-  await Users.findAll({
-    attributes: [
-      ["id", "no"],
-      "full_name",
-      "email",
-      "username",
-      "password",
-      "profile_image_url",
-      "age",
-      "phone_number",
-    ],
-    include: { model: Photos },
-    order: [["createdAt", "DESC"]],
-  }).then((data) => {
-    res.status(200).send(data);
-  });
-  // await Users.findAll({
-  //   attributes: [
-  //     ["id", "no"],
-  //     "full_name",
-  //     "email",
-  //     "username",
-  //     "password",
-  //     "profile_image_url",
-  //     "age",
-  //     "phone_number",
-  //   ],
-  // }).then((data) => {
-  //   res.status(200).send(data);
-  // });
+  try {
+    await Users.findAll({
+      attributes: [
+        ["id", "no"],
+        "full_name",
+        "email",
+        "username",
+        "password",
+        "profile_image_url",
+        "age",
+        "phone_number",
+      ],
+      include: { model: Photos },
+      order: [["createdAt", "DESC"]],
+    }).then((data) => {
+      res.status(200).send(data);
+    });
+  } catch (e) {
+    res.status(400).send({
+      status: "error",
+      message: e,
+    });
+  }
 };
 
 export const registerUser = async (req, res) => {
