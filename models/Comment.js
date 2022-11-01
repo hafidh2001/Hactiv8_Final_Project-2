@@ -1,29 +1,65 @@
-import db from "../db/database.js";
-import { DataTypes } from "sequelize";
+// import db from "../db/database.js";
+// import { DataTypes } from "sequelize";
+// import Users from "./User.js";
+// import Photos from "./Photo.js";
 
-export default Comments = db.define("comments", {
-  //   id: {
-  //     type: ,
-  //     allowNull: false,
-  //   },
-  //   UserId: {
-  //     type: Foreign Key of User Table,
-  //     allowNull: false,
-  //   },
-  //   PhotoId: {
-  //     type: Foreign Key of Photo Table,
-  //     allowNull: false,
-  //   },
-  comment: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-});
+// const Comments = db.define("comments", {
+//   userId: {
+//     references: {
+//       type: DataTypes.INTEGER,
+//       model: Users,
+//       key: "id",
+//       onDelete: "CASCADE",
+//       onUpdate: "RESTRICT",
+//     },
+//     allowNull: false,
+//   },
+//   photoId: {
+//     references: {
+//       type: DataTypes.INTEGER,
+//       model: Photos,
+//       key: "id",
+//       onDelete: "CASCADE",
+//       onUpdate: "RESTRICT",
+//     },
+//     allowNull: false,
+//   },
+//   comment: {
+//     type: DataTypes.TEXT,
+//     allowNull: false,
+//     validate: {
+//       notEmpty: true,
+//       notNull: true,
+//     },
+//   },
+//   createdAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//   },
+//   updatedAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//   },
+// });
+
+// // Comments.belongsTo(Users, {
+// //   foreignKey: {
+// //     name: "userId",
+// //     type: DataTypes.INTEGER,
+// //     allowNull: false,
+// //   },
+// //   onDelete: "CASCADE",
+// //   onUpdate: "RESTRICT",
+// // });
+
+// // Comments.belongsTo(Photos, {
+// //   foreignKey: {
+// //     name: "photoId",
+// //     type: DataTypes.INTEGER,
+// //     allowNull: false,
+// //   },
+// //   onDelete: "CASCADE",
+// //   onUpdate: "RESTRICT",
+// // });
+
+// export default Comments;
