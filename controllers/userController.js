@@ -1,9 +1,9 @@
-// import { getAll, storeUser, checkUser } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import Users from "../models/User.js";
-import Photos from "../models/Photo.js";
 import { hash } from "../helpers/bcrypt.js";
+// import Users from "../models/User.js";
+// import Photos from "../models/Photo.js";
+import { Users, Photos } from "../models/index.js";
 
 export const showUser = async (req, res) => {
   await Users.findAll({
@@ -61,10 +61,22 @@ export const registerUser = async (req, res) => {
       age: age,
       phone_number: phone_number,
     }).then((data) => {
-      res.status(201).send(data);
+      delete data.id;
+      delete data.createdAt;
+      delete data.updatedAt;
+      res.status(201).send({
+        user: {
+          full_name: data.full_name,
+          email: data.email,
+          username: data.username,
+          profile_image_url: data.profile_image_url,
+          age: data.age,
+          phone_number: data.phone_number,
+        },
+      });
     });
   } catch (e) {
-    res.send({
+    res.status(400).send({
       status: "error",
       field: e.errors[0].path,
       value: e.errors[0].value,

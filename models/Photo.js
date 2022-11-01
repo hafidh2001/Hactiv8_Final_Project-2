@@ -1,7 +1,6 @@
 import db from "../db/database.js";
 import { DataTypes } from "sequelize";
-// import Comments from "./Comment.js";
-import Users from "./User.js";
+import Comments from "./Comment.js";
 
 const Photos = db.define(
   "photos",
@@ -53,30 +52,5 @@ const Photos = db.define(
     timestamps: true,
   }
 );
-
-// Photos.belongsTo(Users, {
-//   foreignKey: {
-//     field: "userid",
-//     name: "userId",
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   onDelete: "CASCADE",
-//   onUpdate: "RESTRICT",
-// });
-
-// Photos.belongsToMany(
-//   Users,
-//   { through: Comments },
-//   {
-//     foreignKey: {
-//       name: "photoId",
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     onDelete: "CASCADE",
-//     onUpdate: "RESTRICT",
-//   }
-// );
 
 export default Photos;

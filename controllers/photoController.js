@@ -1,9 +1,9 @@
-// import { getAll, storeUser, checkUser } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import Users from "../models/User.js";
-import Photos from "../models/Photo.js";
 import { hash } from "../helpers/bcrypt.js";
+// import Users from "../models/User.js";
+// import Photos from "../models/Photo.js";
+import { Photos, Users } from "../models/index.js";
 
 export const showPhotos = async (req, res) => {
   await Photos.findAll({
@@ -36,7 +36,7 @@ export const createPhoto = async (req, res) => {
       res.status(201).send(data);
     });
   } catch (e) {
-    res.send({
+    res.status(400).send({
       status: "error",
       field: e.errors[0].path,
       value: e.errors[0].value,

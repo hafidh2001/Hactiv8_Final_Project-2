@@ -1,8 +1,8 @@
 import db from "../db/database.js";
 import { DataTypes } from "sequelize";
 import Photos from "./Photo.js";
-// import Comments from "./Comment.js";
-// import SocialMedia from "./SocialMedia.js";
+import SocialMedia from "./SocialMedia.js";
+import Comments from "./Comment.js";
 
 const Users = db.define(
   "users",
@@ -13,7 +13,10 @@ const Users = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in full_name",
+        },
       },
     },
     email: {
@@ -21,10 +24,15 @@ const Users = db.define(
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
+        isEmail: {
+          msg: "Please enter your email address in format youremail@example.com",
+        },
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in email",
+        },
       },
     },
     username: {
@@ -34,7 +42,10 @@ const Users = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in username",
+        },
       },
     },
     password: {
@@ -43,7 +54,10 @@ const Users = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in password",
+        },
       },
     },
     profile_image_url: {
@@ -62,7 +76,10 @@ const Users = db.define(
         isNumeric: true,
         notEmpty: true,
         notNull: true,
-        max: 3,
+        len: {
+          args: [1, 3],
+          msg: "Display age must be between 1 and 3 characters in length",
+        },
       },
     },
     phone_number: {
@@ -72,7 +89,10 @@ const Users = db.define(
         isNumeric: true,
         notEmpty: true,
         notNull: true,
-        max: 13,
+        len: {
+          args: [1, 13],
+          msg: "Display phone_number must be between 1 and 13 characters in length",
+        },
       },
     },
     createdAt: {
@@ -91,51 +111,5 @@ const Users = db.define(
     timestamps: true,
   }
 );
-
-Users.hasMany(Photos, {
-  foreignKey: {
-    field: "userid",
-    name: "userId",
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  onDelete: "CASCADE",
-  onUpdate: "RESTRICT",
-});
-
-Photos.belongsTo(Users, {
-  foreignKey: {
-    field: "userid",
-    name: "userId",
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  onDelete: "CASCADE",
-  onUpdate: "RESTRICT",
-});
-
-// Users.belongsToMany(
-//   Photos,
-//   { through: Comments },
-//   {
-//     foreignKey: {
-//       name: "userId",
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     onDelete: "CASCADE",
-//     onUpdate: "RESTRICT",
-//   }
-// );
-
-// Users.hasMany(SocialMedia, {
-//   foreignKey: {
-//     name: "userId",
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   onDelete: "CASCADE",
-//   onUpdate: "RESTRICT",
-// });
 
 export default Users;
