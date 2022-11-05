@@ -152,4 +152,33 @@ export const updateUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res) => {};
+export const deleteUser = async (req, res) => {
+  const { userid } = req.params;
+  const user = req.user;
+
+  try {
+    if (Number(userid) !== user.id) {
+      res
+        .status(401)
+        .send({ status: "error", message: "authorization failed" });
+      return;
+    }
+    await Users.destroy({
+      where: {
+        id: user.id,
+      },
+      // truncate: true,
+    }).then((data) => {
+      if (data === 1) {
+        res.status(200).send({
+          message: "Your account has been successfully deleted",
+        });
+      }
+    });
+  } catch (e) {
+    res.status(400).send({
+      status: "error",
+      message: e,
+    });
+  }
+};

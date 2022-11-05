@@ -8,7 +8,7 @@ export const authentication = async (req, res, next) => {
   try {
     // check if token exists
     if (!authorization) {
-      res.status(401).send({
+      res.status(401).json({
         status: "error",
         message: "failed to access, credentials not found",
       });
@@ -27,7 +27,7 @@ export const authentication = async (req, res, next) => {
         if (!data) {
           res
             .status(401)
-            .send({ status: "error", message: "authorization failed" });
+            .json({ status: "error", message: "authorization failed" });
           return;
         }
       }
