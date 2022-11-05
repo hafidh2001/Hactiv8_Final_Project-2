@@ -83,10 +83,9 @@ const Users = db.define(
       },
     },
     phone_number: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isNumeric: true,
         notEmpty: true,
         notNull: true,
         len: {

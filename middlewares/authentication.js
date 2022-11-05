@@ -1,14 +1,15 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import db from "../db/database.js";
+import { compare } from "../helpers/bcrypt.js";
+import Users from "../models/User.js";
 
-export const checkCredential = async (req, res, next) => {
+export const authentication = async (req, res, next) => {
   // get authorization token
   const { authorization } = req.headers;
   try {
     // check if token exists
     if (!authorization) {
-      res.json({
+      res.status(401).send({
         status: "error",
         message: "failed to access, credentials not found",
       });
@@ -21,19 +22,18 @@ export const checkCredential = async (req, res, next) => {
     delete decode.iat;
     delete decode.exp;
     // check decode token with user data
-    const user = await db.query(
-      `SELECT user_id, email FROM users WHERE email = $1`,
-      [decode.email]
+    await Users.findOne({ where: { email: decode.email } }).then(
+      async (data) => {
+        // check if user is exist
+        if (!data) {
+          res
+            .status(401)
+            .send({ status: "error", message: "authorization failed" });
+          return;
+        }
+      }
     );
-    // check if user is exist
-    if (user?.rowCount === 0) {
-      res.json({ status: "error", message: "authorization failed" });
-      return;
-    }
-    req.user = {
-      user_id: user.rows[0].user_id,
-      email: user.rows[0].email,
-    };
+    req.user = { ...decode };
     next();
   } catch (error) {
     next(error);

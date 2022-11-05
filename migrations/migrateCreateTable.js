@@ -15,7 +15,7 @@ await db
    password          VARCHAR (255) NOT NULL,
    profile_image_url TEXT NOT NULL,
    age               NUMERIC (3) NOT NULL,
-   phone_number      NUMERIC (13) NOT NULL,
+   phone_number      VARCHAR (13) NOT NULL,
    createdAt         TIMESTAMP,
    updatedAt         TIMESTAMP
 );`
