@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import { hash } from "../helpers/bcrypt.js";
+import { hash, compare } from "../helpers/bcrypt.js";
 import { Users, Photos } from "../models/index.js";
 
 export const showUser = async (req, res) => {
@@ -52,18 +52,13 @@ export const registerUser = async (req, res) => {
       age: age,
       phone_number: phone_number,
     }).then((data) => {
-      delete data.id;
-      delete data.createdAt;
-      delete data.updatedAt;
+      delete data.dataValues.id;
+      delete data.dataValues.password;
+      delete data.dataValues.createdAt;
+      delete data.dataValues.updatedAt;
+      console.log(data.dataValues);
       res.status(201).send({
-        user: {
-          full_name: data.full_name,
-          email: data.email,
-          username: data.username,
-          profile_image_url: data.profile_image_url,
-          age: data.age,
-          phone_number: data.phone_number,
-        },
+        user: data,
       });
     });
   } catch (e) {
@@ -77,18 +72,84 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
-  //   const { email, password } = req.body;
-  //   checkUser(email, password).then((data) => {
-  //     if (data.status !== "error") {
-  //       const payload = data?.res;
-  //       const token = jwt.sign({ ...payload }, jwt_secret, { expiresIn: "24h" });
-  //       res.json({ ...data, token: token });
-  //     } else {
-  //       res.json(data);
-  //     }
-  //   });
+  const { email, password } = req.body;
+  try {
+    if (email == null || password == null) {
+      res
+        .status(400)
+        .send({ status: "error", message: "email & password are required" });
+      return;
+    }
+
+    await Users.findOne({ where: { email: email } }).then(async (data) => {
+      if (!data) {
+        res
+          .status(400)
+          .send({ status: "error", message: "email does not exist" });
+        return;
+      }
+
+      if (!(await compare(password, data.password))) {
+        res
+          .status(400)
+          .send({ status: "error", message: "password does not match" });
+        return;
+      } else {
+        delete data.dataValues.password;
+        // console.log(data.dataValues);
+        const token = jwt.sign({ ...data.dataValues }, jwt_secret, {
+          expiresIn: "24h",
+        });
+        res.status(200).send({ token: token });
+      }
+    });
+  } catch (e) {
+    res.status(400).send(e);
+  }
 };
 
-export const updateUser = async (req, res) => {};
+export const updateUser = async (req, res) => {
+  const { userid } = req.params;
+  const user = req.user;
+  const { full_name, email, username, profile_image_url, age, phone_number } =
+    req.body;
+  try {
+    if (Number(userid) !== user.id) {
+      res
+        .status(401)
+        .send({ status: "error", message: "authorization failed" });
+      return;
+    }
+
+    await Users.update(
+      {
+        full_name: full_name,
+        email: email,
+        username: username,
+        profile_image_url: profile_image_url,
+        age: age,
+        phone_number: phone_number,
+      },
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    ).then((data) => {
+      if (data[0] === 1) {
+        res.status(200).send({
+          user: req.body,
+        });
+      }
+    });
+  } catch (e) {
+    res.status(400).send({
+      status: "error",
+      field: e.errors[0].path,
+      value: e.errors[0].value,
+      message: e.errors[0].message,
+    });
+  }
+};
 
 export const deleteUser = async (req, res) => {};

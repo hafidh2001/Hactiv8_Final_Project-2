@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import { compare } from "../helpers/bcrypt.js";
 import Users from "../models/User.js";
 
 export const authentication = async (req, res, next) => {
@@ -22,7 +21,7 @@ export const authentication = async (req, res, next) => {
     delete decode.iat;
     delete decode.exp;
     // check decode token with user data
-    await Users.findOne({ where: { email: decode.email } }).then(
+    await Users.findOne({ where: { id: decode.id, email: decode.email } }).then(
       async (data) => {
         // check if user is exist
         if (!data) {

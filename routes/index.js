@@ -1,7 +1,7 @@
 import { Router } from "express";
 import userRoutes from "./userRoutes.js";
 import photoRoutes from "./photoRoutes.js";
-import { checkCredential } from "../middlewares/checkCredentials.js";
+import { authentication } from "../middlewares/authentication.js";
 
 const router = Router();
 
@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 
 // create same-endpoint
 router.use("/users", userRoutes);
-// router.use("/photos", checkCredential, () => {});
 router.use("/photos", photoRoutes);
 
 export default router;

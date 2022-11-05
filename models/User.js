@@ -1,8 +1,5 @@
 import db from "../db/database.js";
 import { DataTypes } from "sequelize";
-import Photos from "./Photo.js";
-import SocialMedia from "./SocialMedia.js";
-import Comments from "./Comment.js";
 
 const Users = db.define(
   "users",

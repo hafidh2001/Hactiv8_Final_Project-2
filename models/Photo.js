@@ -1,6 +1,5 @@
 import db from "../db/database.js";
 import { DataTypes } from "sequelize";
-import Comments from "./Comment.js";
 
 const Photos = db.define(
   "photos",
