@@ -10,7 +10,10 @@ const Photos = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in title",
+        },
       },
     },
     caption: {

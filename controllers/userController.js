@@ -16,7 +16,11 @@ export const showUser = async (req, res) => {
         "age",
         "phone_number",
       ],
-      include: { model: Photos },
+      include: {
+        model: Photos,
+        // attributes: ["id", "title", "caption"],
+        // required: true,
+      },
       order: [["createdAt", "DESC"]],
     }).then((data) => {
       res.status(200).send(data);

@@ -12,6 +12,6 @@ router.get("/", (req, res) => {
 
 // create same-endpoint
 router.use("/users", userRoutes);
-router.use("/photos", photoRoutes);
+router.use("/photos", authentication, photoRoutes);
 
 export default router;
