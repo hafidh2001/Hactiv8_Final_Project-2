@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", showUser);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.put("/:userid", authentication, updateUser);
-router.delete("/:userid", authentication, deleteUser);
+router.put("/:userId", authentication, updateUser);
+router.delete("/:userId", authentication, deleteUser);
 
 export default router;

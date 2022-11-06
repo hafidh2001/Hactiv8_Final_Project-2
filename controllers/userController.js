@@ -113,12 +113,12 @@ export const loginUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { userid } = req.params;
+  const { userId } = req.params;
   const user = req.user;
   const { full_name, email, username, profile_image_url, age, phone_number } =
     req.body;
   try {
-    if (Number(userid) !== user.id) {
+    if (Number(userId) !== user.id) {
       res
         .status(401)
         .send({ status: "error", message: "authorization failed" });
@@ -157,11 +157,11 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  const { userid } = req.params;
+  const { userId } = req.params;
   const user = req.user;
 
   try {
-    if (Number(userid) !== user.id) {
+    if (Number(userId) !== user.id) {
       res
         .status(401)
         .send({ status: "error", message: "authorization failed" });
