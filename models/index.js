@@ -28,7 +28,7 @@ Photos.belongsTo(Users, {
 });
 
 // association between model Users and model SocialMedia
-Users.hasOne(SocialMedia, {
+Users.hasMany(SocialMedia, {
   foreignKey: {
     field: "userid",
     name: "userId",

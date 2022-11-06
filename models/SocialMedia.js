@@ -2,7 +2,7 @@ import db from "../db/database.js";
 import { DataTypes } from "sequelize";
 
 const SocialMedia = db.define(
-  "social_media",
+  "social_medias",
   {
     name: {
       type: DataTypes.STRING,
@@ -10,7 +10,10 @@ const SocialMedia = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: 255,
+        max: {
+          args: [255],
+          msg: "Maximum 255 characters allowed in name",
+        },
       },
     },
     social_media_url: {
