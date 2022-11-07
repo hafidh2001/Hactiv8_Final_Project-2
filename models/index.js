@@ -51,34 +51,6 @@ SocialMedia.belongsTo(Users, {
 });
 
 // association between model Users and model Photos with junction model Comment
-// Users.belongsToMany(
-//   Photos,
-//   { through: Comments },
-//   {
-//     foreignKey: {
-//       name: "userId",
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     onDelete: "CASCADE",
-//     onUpdate: "RESTRICT",
-//   }
-// );
-
-// Photos.belongsToMany(
-//   Users,
-//   { through: Comments },
-//   {
-//     foreignKey: {
-//       name: "userId",
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     onDelete: "CASCADE",
-//     onUpdate: "RESTRICT",
-//   }
-// );
-
 Users.hasMany(Comments, {
   foreignKey: {
     field: "userid",
@@ -122,5 +94,33 @@ Comments.belongsTo(Photos, {
   onDelete: "CASCADE",
   onUpdate: "RESTRICT",
 });
+
+// Users.belongsToMany(
+//   Photos,
+//   { through: Comments },
+//   {
+//     foreignKey: {
+//       name: "userId",
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     onDelete: "CASCADE",
+//     onUpdate: "RESTRICT",
+//   }
+// );
+
+// Photos.belongsToMany(
+//   Users,
+//   { through: Comments },
+//   {
+//     foreignKey: {
+//       name: "userId",
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     onDelete: "CASCADE",
+//     onUpdate: "RESTRICT",
+//   }
+// );
 
 export { Users, Photos, SocialMedia, Comments };
