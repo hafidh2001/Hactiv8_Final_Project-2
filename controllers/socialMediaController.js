@@ -62,7 +62,7 @@ export const updateSocialMedia = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "social media doesn't exist" });
         return;
       }
@@ -80,7 +80,7 @@ export const updateSocialMedia = async (req, res) => {
         }).then((data) => {
           if (!data) {
             res
-              .status(401)
+              .status(400)
               .send({ status: "error", message: "social media doesn't exist" });
             return;
           }
@@ -110,7 +110,7 @@ export const deleteSocialMedia = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "social media doesn't exist" });
         return;
       }

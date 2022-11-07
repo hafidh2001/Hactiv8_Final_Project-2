@@ -41,6 +41,11 @@ export const showPhotos = async (req, res) => {
         {
           model: Comments,
           attributes: ["comment"],
+          nested: true,
+          include: {
+            model: Users,
+            attributes: ["username"],
+          },
         },
         {
           model: Users,
@@ -69,7 +74,7 @@ export const updatePhoto = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "photo doesn't exist" });
         return;
       }
@@ -88,7 +93,7 @@ export const updatePhoto = async (req, res) => {
         }).then((data) => {
           if (!data) {
             res
-              .status(401)
+              .status(400)
               .send({ status: "error", message: "photo doesn't exist" });
             return;
           }
@@ -118,7 +123,7 @@ export const deletePhoto = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "photo doesn't exist" });
         return;
       }

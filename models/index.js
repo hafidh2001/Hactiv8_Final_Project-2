@@ -90,7 +90,29 @@ Users.hasMany(Comments, {
   onUpdate: "RESTRICT",
 });
 
+Comments.belongsTo(Users, {
+  foreignKey: {
+    field: "userid",
+    name: "userId",
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  onDelete: "CASCADE",
+  onUpdate: "RESTRICT",
+});
+
 Photos.hasMany(Comments, {
+  foreignKey: {
+    field: "photoid",
+    name: "photoId",
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  onDelete: "CASCADE",
+  onUpdate: "RESTRICT",
+});
+
+Comments.belongsTo(Photos, {
   foreignKey: {
     field: "photoid",
     name: "photoId",
