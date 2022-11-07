@@ -1,6 +1,15 @@
+## LINK HEROKU
+
+[Link deploy heroku](https://www.google.com)
+
+```bash
+# klik link above or copy link below
+https://www.google.com
+```
+
 ## POSTMAN
 
-[Link to import postman](https://www.getpostman.com/collections/614c10227ce7d60044d6)
+[Link to import postman](https://www.getpostman.com/collections/6ed0d5bace2b72a155a7)
 ![](Postman.png)
 
 ```bash
@@ -40,7 +49,7 @@ $ npm install (to install dependencies on the project stored in package.json)
 
 ## DOCUMENTATION
 
-[See more documentaion here](./note.txt)
+[See more documentation here](./note.txt)
 
 ## License
 
