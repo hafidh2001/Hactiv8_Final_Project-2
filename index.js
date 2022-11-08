@@ -22,6 +22,6 @@ app.use(express.json());
 app.use(routes);
 
 // declare route
-app.listen(port, () => {
-  console.log(`🍃 Server running at http://localhost:${port}/`);
+app.listen(port || 8000, () => {
+  console.log(`🍃 Server running at http://localhost:${port || 8000}/`);
 });
