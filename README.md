@@ -1,10 +1,10 @@
 ## LINK HEROKU
 
-[Link deploy heroku](https://www.google.com)
+[Link deploy heroku](https://hafidh-h8-finalproject-2.herokuapp.com/)
 
 ```bash
 # klik link above or copy link below
-https://www.google.com
+https://hafidh-h8-finalproject-2.herokuapp.com/
 ```
 
 ## POSTMAN
