@@ -9,11 +9,11 @@
     "port-win": "netstat -a | grep 8000",
     "kill-port": "npx kill-port 8000",
     "dev": "yes | npx kill-port 8000 && nodemon index.js",
-    "prod": "node index.js",
+    "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node index.js",
     "migrate-create": "node migrations/migrateCreateTable.js",
     "migrate-drop": "node migrations/migrateDropTable.js"
   },
-  "author": "",
+  "author": "hafidh ahmad fauzan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
