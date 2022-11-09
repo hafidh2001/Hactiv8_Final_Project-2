@@ -3,7 +3,15 @@ import { Sequelize } from "sequelize";
 
 const db =
   node_env === "production"
-    ? new Sequelize(database_url)
+    ? new Sequelize(database_url, {
+        dialect: "postgres",
+        dialectOptions: {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+          },
+        },
+      })
     : new Sequelize(database.name, database.user, database.password, {
         host: database.host,
         dialect: "postgres",
