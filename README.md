@@ -10,11 +10,10 @@ https://hafidh-h8-finalproject-2.herokuapp.com/
 ## POSTMAN
 
 [Link to import postman](https://www.getpostman.com/collections/6ed0d5bace2b72a155a7)
-![](Postman.png)
 
 ```bash
-# klik link and copy
-# go to postman and import
+# klik link above or copy link below
+https://www.getpostman.com/collections/6ed0d5bace2b72a155a7
 ```
 
 ## HOW TO CHECK & SET REMOTE GITHUB ?
@@ -50,6 +49,7 @@ $ npm install (to install dependencies on the project stored in package.json)
 ## DOCUMENTATION
 
 [See more documentation here](./note.txt)
+[See documentation for deploy with Heroku](./note-deploy.txt)
 
 ## License
 
