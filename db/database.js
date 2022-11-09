@@ -11,10 +11,12 @@ const db =
             rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
           },
         },
+        typeValidation: true,
       })
     : new Sequelize(database.name, database.user, database.password, {
         host: database.host,
         dialect: "postgres",
+        typeValidation: true,
       });
 
 export default db;

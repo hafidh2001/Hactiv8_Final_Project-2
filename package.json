@@ -8,7 +8,7 @@
     "migrate-create": "node migrations/migrateCreateTable.js",
     "migrate-drop": "node migrations/migrateDropTable.js",
     "dev": "yes | npx kill-port 8000 && nodemon index.js",
-    "prod": "node index.js"
+    "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node index.js"
   },
   "author": "hafidh ahmad fauzan",
   "license": "ISC",
