@@ -44,3 +44,4 @@ CONFIGURE BASE PROJECT
     - "migrate-drop": "node migrations/migrateDropTable.js" (to run the migration drop tables in the database)
     - "dev": "yes | npx kill-port 8000 && nodemon index.js", (mix command : kill the running port and then run nodemon on the main page <yes : optional>)
     - "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node index.js"
+    - "prod-migrate-create": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node migrations/migrateCreateTable.js", (to run the migration create tables in the database)
