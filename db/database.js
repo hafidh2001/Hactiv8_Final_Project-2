@@ -12,7 +12,6 @@ const db =
           },
         },
         typeValidation: true,
-        sync: true,
       })
     : new Sequelize(database.name, database.user, database.password, {
         host: database.host,
