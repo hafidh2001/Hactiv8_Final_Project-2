@@ -1,4 +1,4 @@
-import { node_env, database_url, database } from "../config.js";
+import { node_env, database_url } from "../config.js";
 import { Sequelize } from "sequelize";
 
 const db =
@@ -13,8 +13,7 @@ const db =
         },
         typeValidation: true,
       })
-    : new Sequelize(database.name, database.user, database.password, {
-        host: database.host,
+    : new Sequelize(database_url, {
         dialect: "postgres",
         typeValidation: true,
       });
