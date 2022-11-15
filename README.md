@@ -21,7 +21,7 @@ https://www.getpostman.com/collections/6ed0d5bace2b72a155a7
 ```bash
 $ git remote -v
 # or
-$ git remote set-url <remote_name> <remote_url> (ex : git remote set-url origin https://github.com/hafidh2001/Hactiv8_Final_Project-1.git)
+$ git remote set-url <remote_name> <remote_url> (ex : git remote set-url origin https://github.com/hafidh2001/Hactiv8_Final_Project-2.git)
 ```
 
 ## HOW TO REMOVE REMOTE GITHUB ?
@@ -33,9 +33,9 @@ $ git remote remove <remote_name> (ex : git remote remove origin)
 ## HOW TO CLONE REPOSITORY ?
 
 ```bash
-$ git clone <remote_repo> (ex: git clone https://github.com/hafidh2001/Hactiv8_Final_Project-1.git)
+$ git clone <remote_repo> (ex: git clone https://github.com/hafidh2001/Hactiv8_Final_Project-2.git)
 # or clones to specific branches
-$ git clone -b <branch> <remote_repo> (ex: git clone -b development https://github.com/hafidh2001/Hactiv8_Final_Project-1.git)
+$ git clone -b <branch> <remote_repo> (ex: git clone -b development https://github.com/hafidh2001/Hactiv8_Final_Project-2.git)
 ```
 
 ## HOW TO RUN ?
