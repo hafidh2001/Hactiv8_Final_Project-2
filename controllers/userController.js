@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
-import { hash, compare } from "../helpers/bcrypt.js";
+import { compare } from "../helpers/bcrypt.js";
 import { Users, Photos } from "../models/index.js";
 
 export const showUser = async (req, res) => {
@@ -45,13 +45,28 @@ export const registerUser = async (req, res) => {
   } = req.body;
 
   try {
-    const hash_password = await hash(password);
+    if (
+      full_name == null ||
+      email == null ||
+      username == null ||
+      password == null ||
+      profile_image_url == null ||
+      age == null ||
+      phone_number == null
+    ) {
+      res.status(400).send({
+        status: "error",
+        message:
+          "full_name, email, username, password, profile_image_url, age & phone_number are required",
+      });
+      return;
+    }
 
     await Users.create({
       full_name: full_name,
       email: email,
       username: username,
-      password: hash_password,
+      password: password,
       profile_image_url: profile_image_url,
       age: age,
       phone_number: phone_number,
@@ -125,27 +140,42 @@ export const updateUser = async (req, res) => {
       return;
     }
 
-    await Users.update(
-      {
-        full_name: full_name,
-        email: email,
-        username: username,
-        profile_image_url: profile_image_url,
-        age: age,
-        phone_number: phone_number,
-      },
-      {
-        where: {
-          id: user.id,
+    if (
+      full_name == null &&
+      email == null &&
+      username == null &&
+      profile_image_url == null &&
+      age == null &&
+      phone_number == null
+    ) {
+      res.status(200).send({
+        message: "you don't make changes to anything",
+      });
+      return;
+    } else {
+      await Users.update(
+        {
+          full_name: full_name,
+          email: email,
+          username: username,
+          profile_image_url: profile_image_url,
+          age: age,
+          phone_number: phone_number,
         },
-      }
-    ).then((data) => {
-      if (data[0] === 1) {
-        res.status(200).send({
-          user: req.body,
-        });
-      }
-    });
+        {
+          where: {
+            id: user.id,
+          },
+          hooks: false,
+        }
+      ).then((data) => {
+        if (data[0] === 1) {
+          res.status(200).send({
+            user: req.body,
+          });
+        }
+      });
+    }
   } catch (e) {
     res.status(400).send({
       status: "error",

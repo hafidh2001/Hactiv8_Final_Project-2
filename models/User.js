@@ -1,5 +1,6 @@
 import db from "../db/database.js";
 import { DataTypes } from "sequelize";
+import { hash } from "../helpers/bcrypt.js";
 
 const Users = db.define(
   "users",
@@ -51,9 +52,9 @@ const Users = db.define(
       validate: {
         notEmpty: true,
         notNull: true,
-        max: {
-          args: [255],
-          msg: "Maximum 255 characters allowed in password",
+        len: {
+          args: [1, 255],
+          msg: "Display password must be between 1 and 255 characters in length",
         },
       },
     },
@@ -73,6 +74,14 @@ const Users = db.define(
         isNumeric: true,
         notEmpty: true,
         notNull: true,
+        min: {
+          args: [1],
+          msg: "Minimum 1 year allowed in age",
+        },
+        max: {
+          args: [150],
+          msg: "Maximum 150 year allowed in age",
+        },
         len: {
           args: [1, 3],
           msg: "Display age must be between 1 and 3 characters in length",
@@ -105,6 +114,20 @@ const Users = db.define(
   {
     freezeTableName: true,
     timestamps: true,
+    hooks: {
+      beforeValidate: () => {
+        // console.log("beforeValidate");
+      },
+      afterValidate: async (users) => {
+        users.password = await hash(users.password);
+      },
+      beforeCreate: () => {
+        // console.log("beforeCreate");
+      },
+      afterCreate: () => {
+        // console.log("afterCreate");
+      },
+    },
   }
 );
 
